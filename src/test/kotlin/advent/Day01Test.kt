@@ -7,6 +7,7 @@ import kotlin.test.assertEquals
 
 class Day01Test {
     private val example = "data/01_ex.txt"
+    private val example2 = "data/01_ex2.txt"
     private val input = "data/01_in.txt"
 
     private val service = Day01()
@@ -15,7 +16,7 @@ class Day01Test {
     fun example1() {
         val puzzleContent = getFileAsText(example)
         val response = service.execute01(puzzleContent)
-        assertEquals(0, response)
+        assertEquals(142, response)
     }
 
     @Test
@@ -23,20 +24,21 @@ class Day01Test {
         val puzzleContent = getFileAsText(input)
         val response = service.execute01(puzzleContent)
         println(response)
-        assertEquals(0, response)
+        assertEquals(54940, response)
     }
 
     @Test
     fun example2() {
-        val puzzleContent = getFileAsText(example)
+        val puzzleContent = getFileAsText(example2)
         val response = service.execute02(puzzleContent)
-        assertEquals(1, response)
+        assertEquals(281, response)
     }
 
     @Test
     fun exercise2() {
         val puzzleContent = getFileAsText(input)
         val response = service.execute02(puzzleContent)
-        assertEquals(1, response)
+        println(response)
+        assertEquals(54208, response)
     }
 }
