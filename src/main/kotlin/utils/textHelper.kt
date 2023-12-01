@@ -1,13 +1,10 @@
 package utils
 
-fun getAsListOfInt(input: String): List<Int?> {
-    return input.lines().map {
-        if (it.isBlank()) {
-            null
-        } else {
-            it.toInt()
-        }
-    }
+fun getAsListOfInt(input: String): List<Int> {
+    return getAsListOfNullableInt(input).filterNotNull()
+}
+fun getAsListOfNullableInt(input: String): List<Int?> {
+    return input.lines().map { it.toIntOrNull() }
 }
 
 fun getAsListOfChars(input: String): List<Char> {
