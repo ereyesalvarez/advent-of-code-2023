@@ -1,6 +1,8 @@
 package advent
 
 class Day02 {
+    data class CubeGame(val blue: Int, val green: Int, val red: Int)
+
     // only 12 red cubes, 13 green cubes, and 14 blue cubes
     private val redCubes: Int = 12
     private val greenCubes: Int = 13
@@ -68,4 +70,3 @@ class Day02 {
     }
 }
 
-data class CubeGame(val blue: Int, val green: Int, val red: Int)
