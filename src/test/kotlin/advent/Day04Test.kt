@@ -15,7 +15,7 @@ class Day04Test {
     fun example1() {
         val puzzleContent = getFileAsText(example)
         val response = service.execute01(puzzleContent)
-        assertEquals(0, response)
+        assertEquals(13, response)
     }
 
     @Test
@@ -23,14 +23,14 @@ class Day04Test {
         val puzzleContent = getFileAsText(input)
         val response = service.execute01(puzzleContent)
         println(response)
-        assertEquals(0, response)
+        assertEquals(23441, response)
     }
 
     @Test
     fun example2() {
         val puzzleContent = getFileAsText(example)
         val response = service.execute02(puzzleContent)
-        assertEquals(0, response)
+        assertEquals(30, response)
     }
 
     @Test
@@ -38,6 +38,15 @@ class Day04Test {
         val puzzleContent = getFileAsText(input)
         val response = service.execute02(puzzleContent)
         println(response)
-        assertEquals(0, response)
+        assertEquals(5923918, response)
+    }
+
+    @Test
+    fun map() {
+        val l = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53"
+        val result = service.map(listOf(l)).first()
+        assertEquals(result.id, 1)
+        assertEquals(result.win, listOf(41, 48, 83, 86, 17))
+        assertEquals(result.numbers, listOf(83, 86, 6, 31, 17, 9, 48, 53))
     }
 }
