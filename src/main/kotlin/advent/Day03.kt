@@ -6,24 +6,10 @@ class Day03 {
     data class NumberFind(val y: Int, val xStart: Int, val xEnd: Int, val value: Int)
 
     fun execute01(input: String): Int {
-        var lines = input.lines()
-        var points = getDigitPosition(lines)
+        val lines = input.lines()
+        val points = getDigitPosition(lines)
         val numbers = getNumbers(lines)
-        var sum = 0
-        val sum2 = numbers.filter { isNear(it.y, it.xStart, it.xEnd, points) }.sumOf { it.value }
-        numbers.forEach {
-            if (isNear(it.y, it.xStart, it.xEnd, points)) {
-                sum += it.value
-                println("Sum ${it.value} => $sum")
-            } else {
-                println("${it.value} is not near")
-            }
-        }
-        if (numbers.any { it.value > 999 }) {
-            println("fuck")
-        }
-        println(sum2)
-        return sum
+       return numbers.filter { isNear(it.y, it.xStart, it.xEnd, points) }.sumOf { it.value }
     }
 
     fun getNumbers(lines: List<String>): MutableList<NumberFind> {
@@ -113,7 +99,7 @@ class Day03 {
     }
 
     private fun getPivots(y: Int, xStart: Int, xEnd: Int, points: List<Point>): List<Point> {
-        var pivots = mutableListOf<Point>()
+        val pivots = mutableListOf<Point>()
 
 
         if (points.contains(Point(xStart - 1, y))) {

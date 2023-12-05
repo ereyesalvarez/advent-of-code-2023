@@ -20,7 +20,6 @@ class Day04 {
         var matches = 0
         lottery.numbers.forEach {
             if (lottery.win.contains(it)) {
-                //println("$it win")
                 matches++
             }
         }
