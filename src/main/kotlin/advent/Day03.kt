@@ -1,6 +1,7 @@
 package advent
 
-import java.awt.Point
+import model.Point
+
 
 class Day03 {
     data class NumberFind(val y: Int, val xStart: Int, val xEnd: Int, val value: Int)
@@ -12,7 +13,7 @@ class Day03 {
        return numbers.filter { isNear(it.y, it.xStart, it.xEnd, points) }.sumOf { it.value }
     }
 
-    fun getNumbers(lines: List<String>): MutableList<NumberFind> {
+    private fun getNumbers(lines: List<String>): List<NumberFind> {
         val numbers = mutableListOf<NumberFind>()
         var y = 0
         var xStart = 0
@@ -66,7 +67,7 @@ class Day03 {
             }
         }
         var result = 0
-        gears.forEach { t, u ->
+        gears.forEach { (t, u) ->
             if (u.size > 1) {
                 result += u.reduce { acc, i -> acc * i }
             }
