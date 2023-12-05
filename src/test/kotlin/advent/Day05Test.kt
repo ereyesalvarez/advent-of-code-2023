@@ -15,7 +15,7 @@ class Day05Test {
     fun example1() {
         val puzzleContent = getFileAsText(example)
         val response = service.execute01(puzzleContent)
-        assertEquals(0, response)
+        assertEquals(35L, response)
     }
 
     @Test
@@ -23,14 +23,14 @@ class Day05Test {
         val puzzleContent = getFileAsText(input)
         val response = service.execute01(puzzleContent)
         println(response)
-        assertEquals(0, response)
+        assertEquals(84470622, response)
     }
 
     @Test
     fun example2() {
         val puzzleContent = getFileAsText(example)
         val response = service.execute02(puzzleContent)
-        assertEquals(0, response)
+        assertEquals(46, response)
     }
 
     @Test
@@ -38,7 +38,7 @@ class Day05Test {
         val puzzleContent = getFileAsText(input)
         val response = service.execute02(puzzleContent)
         println(response)
-        assertEquals(0, response)
+        assertEquals(26714516, response)
     }
 
 }

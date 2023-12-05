@@ -8,7 +8,7 @@ class PointHelperKtTest {
 
     @Test
     fun printBoard() {
-        var board = listOf(
+        val board = listOf(
             listOf('a', 'b'),
             listOf('c', 'd')
         )
