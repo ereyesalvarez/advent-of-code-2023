@@ -3,27 +3,19 @@ package advent
 class Day06 {
     fun execute01(input: String): Long {
         val puzzle = map(input)
-
         return puzzle.map{ countPossibilities(it) }
             .fold(1) { acc, r -> acc * r }
     }
 
     fun execute02(input: String): Long {
-        println("mapping")
         val puzzle = map2(input)
-        println("counting")
-        return countPossibilities(puzzle)
+        val time = puzzle.first
+        return (0..time).asSequence().map { it * (time - it) }.count { it > puzzle.second }.toLong()
     }
 
     private fun countPossibilities(puzzle: Pair<Long, Long>): Long{
         val time = puzzle.first
-        println("counting $time")
-        return (0..time).asSequence().map {
-            val t = it * (time - it)
-            t
-        }.count {
-            it > puzzle.second
-        }.toLong()
+        return (0..time).asSequence().map { it * (time - it) }.count { it > puzzle.second }.toLong()
     }
 
     private fun map(input: String): List<Pair<Long, Long>>{
