@@ -9,13 +9,16 @@ class Day06 {
     }
 
     fun execute02(input: String): Long {
+        println("mapping")
         val puzzle = map2(input)
+        println("counting")
         return countPossibilities(puzzle)
     }
 
     private fun countPossibilities(puzzle: Pair<Long, Long>): Long{
         val time = puzzle.first
-        return (0..time).map {
+        println("counting $time")
+        return (0..time).asSequence().map {
             val t = it * (time - it)
             t
         }.count {
