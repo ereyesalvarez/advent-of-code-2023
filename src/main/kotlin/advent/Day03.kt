@@ -93,7 +93,6 @@ class Day03 {
         return points
     }
 
-    // 832
     private fun equalToSymbol(char: Char): Boolean {
         val listOfChars = listOf('*', '%', '@', '#', '+', '$', '=', '-', '/', '&')
         return listOfChars.contains(char)

@@ -1,5 +1,9 @@
 package utils
 
+fun String.toLongList(): List<Int> {
+    return this.split(" ").map { s -> s.toInt() }
+}
+
 fun getAsListOfInt(input: String): List<Int> {
     return getAsListOfNullableInt(input).filterNotNull()
 }

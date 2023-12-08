@@ -108,7 +108,6 @@ class Day07 {
             return Figure.PAREJA
         }
 
-        // No jokers game
         if (max == 5) {
             return Figure.REPOKER
         }
