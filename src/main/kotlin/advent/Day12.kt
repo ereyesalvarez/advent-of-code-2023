@@ -86,20 +86,14 @@ class Day12 {
                     z.add(Pair(b, it.second))
                 }
             }
-            //reduce
             val o = z.groupBy { it.first }
             pairs = o.map { m -> Pair(m.key, m.value.sumOf { it.second }) }.toMutableList()
-            if(pairs.filter { it.second < 1 }.any()){
-                println("ERROR $input")
-            }
-            // pairs = z
         }
-        val response = pairs.filter { l -> calculateInt(l.first) == expected }.sumOf { l -> l.second.toLong() }
-        println(response)
-        return response.toLong()
+        val response = pairs.filter { l -> calculateInt(l.first) == expected }.sumOf { l -> l.second }
+        return response
     }
 
-    private fun calculateInt(input: String): List<Int> {
+    fun calculateInt(input: String): List<Int> {
         var broken = false
         val response = mutableListOf<Int>()
         var count = 0

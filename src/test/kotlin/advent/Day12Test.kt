@@ -1,9 +1,7 @@
 package advent
 
 
-import model.Point
 import org.junit.jupiter.api.Assertions.assertNotEquals
-import org.junit.jupiter.api.Disabled
 import utils.getFileAsText
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -42,27 +40,13 @@ class Day12Test {
         val response = service.execute02(puzzleContent)
         println(response)
         assertNotEquals(28366205725, response)
-        assertEquals(0, response)
+        assertEquals(13012052341533, response)
     }
-//
-//    @Test
-//    fun calculateInput() {
-//        assertEquals(listOf(3, 2, 1), service.calculateInt(".###.##.#..."))
-//        assertEquals(listOf(1,1,3), service.calculateInt("#.#.###"))
-//    }
-//
-//    @Test
-//    fun mapToList() {
-//        assertEquals(
-//            listOf(
-//                Pair('.', 1),
-//                Pair('#', 3),
-//                Pair('.', 1),
-//                Pair('#', 2),
-//                Pair('?', 1),
-//                Pair('#', 1),
-//                Pair('.', 3),
-//            ), service.mapToList(".###.##?#...")
-//        )
-//    }
+
+    @Test
+    fun calculateInput() {
+        assertEquals(listOf(3, 2, 1), service.calculateInt(".###.##.#..."))
+        assertEquals(listOf(1,1,3), service.calculateInt("#.#.###"))
+    }
+
 }
