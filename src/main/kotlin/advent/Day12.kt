@@ -5,10 +5,18 @@ import utils.findMCM
 class Day12 {
 
 
+    fun String.collapse(): String {
+        var x = this
+        while (x.contains("..")) {
+            x = x.replace("..", ".")
+        }
+        return x
+    }
+
     fun execute01(input: String): Long {
         var count = 0
         val map = input.lines().map { it.split(" ") }
-            .map { Pair(it.first(), it.last().split(",").map { it.toInt() }) }.asSequence()
+            .map { l -> Pair(l.first().collapse(), l.last().split(",").map { it.toInt() }) }.asSequence()
         return map.sumOf {
             println(count++)
             calculatePossibilities(it.first, it.second).count { l -> calculateInt(l) == it.second }
@@ -21,10 +29,11 @@ class Day12 {
         var count = 0
         while (!x.none { it.contains('?') }) {
             x = x.flatMap {
-                listOf(it.replaceFirst("?", "."), it.replaceFirst("?", "#"))
+                listOf(it.replaceFirst("?", ".").collapse(), it.replaceFirst("?", "#"))
             }
             count++
         }
+        println(count)
         return x
     }
 
@@ -72,23 +81,24 @@ class Day12 {
 
 
     fun calculatePossibilities(input: String, expected: List<Int>): List<String> {
-        var x = listOf(input)
         var count = 0
-        while (!x.none { it.contains('?') }) {
-            var z = mutableListOf<String>()
-            x.forEach {
-                val a = it.replaceFirst("?", ".")
-                val b = it.replaceFirst("?", "#")
+        var pairs = mutableListOf<Pair<String, Int>>()
+        pairs.add(Pair(input, 1))
+        while (pairs.map { it.first }.any { it.contains('?') }){
+            val z = mutableListOf<Pair<String, Int>>()
+            pairs.forEach {
+                val a = it.first.replaceFirst("?", ".").collapse()
+                val b = it.first.replaceFirst("?", "#").collapse()
                 if (check(a, expected)) {
-                    z.add(a)
+                    z.add(Pair(a, it.second))
                 }
                 if (check(b, expected)) {
-                    z.add(b)
+                    z.add(Pair(b, it.second))
                 }
             }
-            x = z
-            count++
+            pairs = z
         }
+        val x = pairs.map { it.first }
         println("x size: ${x.size}  <--- $input")
         return x
     }

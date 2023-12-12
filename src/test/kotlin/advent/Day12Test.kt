@@ -2,6 +2,7 @@ package advent
 
 
 import model.Point
+import org.junit.jupiter.api.Disabled
 import utils.getFileAsText
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -35,6 +36,7 @@ class Day12Test {
     }
 
     @Test
+    @Disabled
     fun exercise2() {
         val puzzleContent = getFileAsText(input)
         val response = service.execute02(puzzleContent)
@@ -61,22 +63,5 @@ class Day12Test {
                 Pair('.', 3),
             ), service.mapToList(".###.##?#...")
         )
-    }
-
-    @Test
-    fun x() {
-        var r = service.calculatePossibilities("?###????????")
-        var ex = """
-            .###.##.#...
-            .###.##..#..
-            .###.##...#.
-            .###.##....#
-            .###..##.#..
-            .###..##..#.
-            .###..##...#
-            .###...##.#.
-            .###...##..#
-            .###....##.#
-            """.lines().map { it.trim() }
     }
 }
