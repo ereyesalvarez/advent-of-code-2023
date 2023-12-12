@@ -1,11 +1,9 @@
 package advent
 
-import utils.findMCM
-
 class Day12 {
 
 
-    fun String.collapse(): String {
+    private fun String.collapse(): String {
         var x = this
         while (x.contains("..")) {
             x = x.replace("..", ".")
@@ -14,30 +12,23 @@ class Day12 {
     }
 
     fun execute01(input: String): Long {
-        var count = 0
-        val map = input.lines().map { it.split(" ") }
-            .map { l -> Pair(l.first().collapse(), l.last().split(",").map { it.toInt() }) }.asSequence()
+        val map =
+            input.lines().map { it.split(" ") }.map { l -> Pair(l.first().collapse(), l.last().split(",").map { it.toInt() }) }.asSequence()
         return map.sumOf {
-            println(count++)
-            calculatePossibilities(it.first, it.second).count { l -> calculateInt(l) == it.second }
-                .toLong()
+            calculatePossibilities(it.first, it.second)
         }
     }
 
-    fun calculatePossibilities(input: String): List<String> {
-        var x = listOf(input)
-        var count = 0
-        while (!x.none { it.contains('?') }) {
-            x = x.flatMap {
-                listOf(it.replaceFirst("?", ".").collapse(), it.replaceFirst("?", "#"))
-            }
-            count++
+    fun execute02(input: String): Long {
+        val map = input.lines().map { it.split(" ") }.map { it -> Pair(it.first(), it.last().split(",").map { it.toInt() }) }.asSequence()
+        return map.map {
+            unfold(it)
+        }.sumOf {
+            calculatePossibilities(it.first, it.second)
         }
-        println(count)
-        return x
     }
 
-    fun check(input: String, expected: List<Int>): Boolean {
+    private fun check(input: String, expected: List<Int>): Boolean {
         val n = calculateIntWith(input)
         if (n.size > expected.size) {
             return false
@@ -50,9 +41,9 @@ class Day12 {
         return true
     }
 
-    fun calculateIntWith(input: String): List<Int> {
+    private fun calculateIntWith(input: String): List<Int> {
         var broken = false
-        var response = mutableListOf<Int>()
+        val response = mutableListOf<Int>()
         var count = 0
         input.forEach {
             if (it == '?') {
@@ -80,12 +71,11 @@ class Day12 {
     }
 
 
-    fun calculatePossibilities(input: String, expected: List<Int>): List<String> {
-        var count = 0
-        var pairs = mutableListOf<Pair<String, Int>>()
+    private fun calculatePossibilities(input: String, expected: List<Int>): Long {
+        var pairs = mutableListOf<Pair<String, Long>>()
         pairs.add(Pair(input, 1))
-        while (pairs.map { it.first }.any { it.contains('?') }){
-            val z = mutableListOf<Pair<String, Int>>()
+        while (pairs.map { it.first }.any { it.contains('?') }) {
+            val z = mutableListOf<Pair<String, Long>>()
             pairs.forEach {
                 val a = it.first.replaceFirst("?", ".").collapse()
                 val b = it.first.replaceFirst("?", "#").collapse()
@@ -96,36 +86,22 @@ class Day12 {
                     z.add(Pair(b, it.second))
                 }
             }
-            pairs = z
-        }
-        val x = pairs.map { it.first }
-        println("x size: ${x.size}  <--- $input")
-        return x
-    }
-
-    fun mapToList(input: String): MutableList<Pair<Char, Int>> {
-        val response = mutableListOf<Pair<Char, Int>>()
-        var current = '0'
-        var count = 0
-        input.forEach {
-            if (current == '0') {
-                current = it
-                count++
-            } else if (it == current) {
-                count++
-            } else {
-                response.add(Pair(current, count))
-                count = 1
-                current = it
+            //reduce
+            val o = z.groupBy { it.first }
+            pairs = o.map { m -> Pair(m.key, m.value.sumOf { it.second }) }.toMutableList()
+            if(pairs.filter { it.second < 1 }.any()){
+                println("ERROR $input")
             }
+            // pairs = z
         }
-        response.add(Pair(current, count))
-        return response
+        val response = pairs.filter { l -> calculateInt(l.first) == expected }.sumOf { l -> l.second.toLong() }
+        println(response)
+        return response.toLong()
     }
 
-    fun calculateInt(input: String): List<Int> {
+    private fun calculateInt(input: String): List<Int> {
         var broken = false
-        var response = mutableListOf<Int>()
+        val response = mutableListOf<Int>()
         var count = 0
         input.forEach {
             if (broken) {
@@ -147,20 +123,6 @@ class Day12 {
             response.add(count)
         }
         return response
-    }
-
-    fun execute02(input: String): Long {
-        var count = 0
-        val map = input.lines().map { it.split(" ") }
-            .map { it -> Pair(it.first(), it.last().split(",").map { it.toInt() }) }.asSequence()
-        return map.map {
-            unfold(it)
-        }.sumOf {
-            val m = calculatePossibilities(it.first, it.second)
-            val r = m.count { l -> calculateInt(l) == it.second }.toLong()
-            println("${count++} -> $r")
-            r
-        }
     }
 
     private fun unfold(input: Pair<String, List<Int>>): Pair<String, List<Int>> {
