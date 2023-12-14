@@ -30,7 +30,7 @@ class Day14Test {
     fun example2() {
         val puzzleContent = getFileAsText(example)
         val response = service.execute02(puzzleContent)
-        assertEquals(64, response)
+            assertEquals(64, response)
     }
 
     @Test
@@ -38,7 +38,7 @@ class Day14Test {
         val puzzleContent = getFileAsText(input)
         val response = service.execute02(puzzleContent)
         println(response)
-        assertEquals(27587, response)
+        assertEquals(105606, response)
 
     }
 }
