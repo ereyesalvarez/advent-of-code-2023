@@ -23,7 +23,7 @@ class Day15Test {
         val puzzleContent = getFileAsText(input)
         val response = service.execute01(puzzleContent)
         println(response)
-        assertEquals(0, response)
+        assertEquals(515495, response)
     }
 
     @Test
